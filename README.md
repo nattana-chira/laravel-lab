@@ -50,14 +50,30 @@ class FruitController extends Controller
 สร้างฟังชั่น index ขึ้นมาและให้ ฟังชันนี้ส่งค่าแถวทั้งหมดในตาราง fruits กลับไป
 
 ```php
-  function index()
-  {
-      $fruits = Fruit::get();
+function index()
+{
+  $fruits = Fruit::get();
 
-      return $fruits;
-  }
+  return $fruits;
+}
 ```
 
+```json
+[
+{
+"id": 1,
+"name": "apple",
+"color": "red",
+"price": "50.00"
+},
+{
+"id": 2,
+"name": "banana",
+"color": "yellow",
+"price": "30.00"
+}
+]
+```
 
 
 
