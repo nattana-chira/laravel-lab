@@ -1,5 +1,5 @@
-สร้าง CRUD กับตารางดาตาเบสหนึ่งตัว
-
+- สร้าง CRUD กับตารางดาตาเบสหนึ่งตัว
+* sadasd
 เริ่มต้นจากการสร้าง route ใหม่ก่อน
 
 ```php
@@ -58,20 +58,22 @@ function index()
 }
 ```
 
+กลับไปที่บราวเซอร์ localhost/fruit เพื่อดูความเปลี่ยนแปลง
+
 ```json
 [
-{
-"id": 1,
-"name": "apple",
-"color": "red",
-"price": "50.00"
-},
-{
-"id": 2,
-"name": "banana",
-"color": "yellow",
-"price": "30.00"
-}
+    {
+        "id": 1,
+        "name": "apple",
+        "color": "red",
+        "price": "50.00"
+    },
+    {
+        "id": 2,
+        "name": "banana",
+        "color": "yellow",
+        "price": "30.00"
+    }
 ]
 ```
 
