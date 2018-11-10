@@ -1,6 +1,17 @@
+# เตือนความจำ #
+- โฟลเดอร์ public จะเป็นโฟลเดอร์มีไว้เก็บไฟล์รูปภาพ, css, js
+- โฟลเดอร์ application มีไว้เก็บ source code ของโปจเจ็คเราทั้งหมด
+
+- application/.env คือไฟล์ที่เอาไว้กำหนดการตั้งค่าของแอปลิเคชัน
+- application/routes/web.php คือไฟล์ที่กำหนด route ต่างๆ
+- application/app/Http/Controllers คือโฟลเดอร์เก็บ Controller
+- application/app/Http/Models คือโฟลเดอร์เก็บ Model
+- application/resources/views คือโฟลเดอร์เก็บ View
+
+ 
  # สร้าง CRUD กับตารางดาตาเบสหนึ่งตัว #
 
-เริ่มต้นจากการสร้าง route ใหม่ก่อน
+เริ่มต้นจากการสร้าง route ใหม่ก่อน (人◕ω◕) 
 
 ```php
 Route::get('/fruit', 'FruitController@index');
@@ -12,7 +23,7 @@ Route::get('/fruit', 'FruitController@index');
 php artisan make:controller FruitController
 ```
 
-แล้วก็สร้าง Model Fruit ในโฟลเดอร์ application/app/Models ด้วยเลย
+แล้วก็สร้าง Model Fruit ในโฟลเดอร์ application/app/Models ด้วยเลย (・ωｰ)～☆ 
 ```php
 php artisan make:model Models/FruitController
 ```
@@ -58,7 +69,7 @@ function index()
 }
 ```
 
-กลับไปที่บราวเซอร์ localhost/fruit เพื่อดูความเปลี่ยนแปลง
+กลับไปที่บราวเซอร์ localhost/fruit เพื่อดูความเปลี่ยนแปลง ヾ(・ω・ｏ)
 
 ```json
 [
@@ -78,7 +89,7 @@ function index()
 ```
 
 ทีนี้เราอยากจะแสดงข้อมูลที่เราดึงมาในรูปแบบของหน้าเว็บแทน ไห้ไปสร้าง View ขึ้นมาใหม่
-ที่ application/resources/views สร้างไฟล์ที่ชื่อ fruit.blade.php
+ที่ application/resources/views สร้างไฟล์ที่ชื่อ fruit.blade.php ԅ( ˘ω˘ԅ)
 
 ใน fruit.blade.php ไห้เราเขียนโค้ด html ลงไปเพื่อสร้างตารางแสดงข้อมูลทั้งหมด
 
@@ -103,7 +114,7 @@ function index()
 </table>
 ```
 
-หลังจากนั้น ย้อนกลับไปที่ FruitController เปลี่ยนฟังชัน index ให้มันส่งตัวแปร $fruits ที่ดึงมาจาก Model Fruits ส่งไปให้ View แทน
+หลังจากนั้น ย้อนกลับไปที่ FruitController เปลี่ยนฟังชัน index ให้มันส่งตัวแปร $fruits ที่ดึงมาจาก Model Fruits ส่งไปให้ View แทน ((⊂(`ω´∩)
 
 ```php
 function index()
@@ -116,7 +127,91 @@ function index()
 }
 ```
 
-กลับไปที่บราวเซอร์ localhost/fruit เพื่อดูความเปลี่ยนแปลง
+กลับไปที่บราวเซอร์ localhost/fruit เพื่อดูความเปลี่ยนแปลง  (人ゝω・）
 
+จะเห็นได้ว่าหน้าเว็บเราแสดงข้อมูลเป็นตารางของ HTML ได้แล้ว
+
+ต่อมาเราต้องการสร้าง Form HTML เพื่อเพิ่มข้อมูลใหม่ไปยังดาต้าเบส
+
+เราก็สร้าง View ขึ้นมาใหม่หนึ่งตัวชื่อ ชื่อ fruit-create.blade.php ซึ่งในไฟล์นี้เราจะสร้าง Form HTML สำหรับการส่งข้อมูลขึ้นมา (* >ω<)=3
+
+```html
+<form action="/fruit/create" method="post"> <!-- method post จะทำให้ Laravel รู้ว่า request นี้เป็น POST request -->
+    @csrf <!-- ตัวนี้ทำให้ Laravel รู้ว่าข้อมูลนี้ส่งมาจากโดเมนเดียวกันมีความเชื่อถือได้ -->
+
+    <div>
+        <input type="text" name="name" placeholder="ชื่อผลไม้">
+    </div>
+    <div>
+        <select name="color">
+            <option>-- เลือกสี --</option>
+            <option value="red">แดง</option>
+            <option value="yellow">เหลือง</option>
+            <option value="green">เขียว</option>
+            <option value="purple">ม่วง</option>
+            <option value="orange">ส้ม</option>
+        </select>
+    </div>
+    <div>
+        <input type="number" name="price" placeholder="ราคา">
+    </div>
+    
+</form>
+```
+
+หลังจากนั้นเราต้องสร้าง route อันใหม่ขึ้นมาเพื่อที่จะแสดง Form ที่เราสร้างขึ้น
+
+```php
+Route::get('/fruit/create', 'FruitController@renderCreateForm');
+```
+
+กลับไปที่ FruitController เพิ่มฟังชั่น renderCreateForm เพื่อให้มันส่ง View กลับมา
+
+```php
+function renderCreateForm()
+{
+    return view("fruit-create");
+}
+```
+
+เรามี Form HTML สำหรับเพิ่มข้อมูลแล้วทีนี้เราก็ต้องสร้างฟังชันสำหรับรับค่า Form และบันทึกลงดาต้าเบส
+
+สร้าง route สำหรับบันทึกข้อมูล fruit
+
+```php
+Route::post('/fruit/create', 'FruitController@saveFruit');
+```
+
+สร้างฟังชั่นสำหรับบันทึกข้อมูล และหลังจากบันทึกเสร็จหน้าเว็บจะเด้งกลับไปที่ /fruit โดยอัติโนมัติ
+
+```php
+function saveFruit(Request $request)
+{
+    $fruit = new Fruit();
+    $fruit->name    = $request->name;
+    $fruit->color   = $request->color;
+    $fruit->price   = $request->price;
+    $fruit->save();
+
+    return redirect("/fruit");
+}
+```
+
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+# ความรู้เพิ่มเติม #
+
+- basic knowledge of web development (make it easier to use laravel if you understand these things)
+  - CRUD
+  - RESTful API
+  - Session
+
+- advance knowledge of laravel
+  - Middleware
+  - Database Migration (Factory Seed)
+  - Service Provider
+  - Middleware
+  - Repository Pattern
 
 
