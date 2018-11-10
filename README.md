@@ -219,5 +219,65 @@ function saveFruit(Request $request)
   - Middleware
   - Event Listener
   - Repository Pattern
+  
+  
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+fruit-edit.blade.php
+
+```html
+<form action="/fruit/create" method="post">
+    @csrf
+
+    <div>
+        <input type="text" name="name" placeholder="ชื่อ"
+            value="{{ $fruit->name }}">
+    </div>
+
+    <div>
+        <select name="color">
+            <option> เลือกสี </option>
+            @if ($fruit->color == "red")
+                <option value="red" selected> แดง </option>
+            @else
+                <option value="red"> แดง </option>
+            @endif
+
+            @if ($fruit->color == "yellow")
+                <option value="yellow" selected> เหลือง </option>
+            @else
+                <option value="yellow"> เหลือง </option>
+            @endif
+
+            @if ($fruit->color == "green")
+                <option value="green" selected> เขียว </option>
+            @else
+                <option value="green"> เขียว </option>
+            @endif
+
+            @if ($fruit->color == "purple")
+                <option value="purple" selected> ม่วง </option>
+            @else
+                <option value="purple"> ม่วง </option>
+            @endif
+
+            @if ($fruit->color == "orange")
+                <option value="orange" selected> ส้ม </option>
+            @else
+                <option value="orange"> ส้ม </option>
+            @endif
+        </select>
+    </div>
+
+    <div>
+        <input type="number" name="price" placeholder="ราคา"
+            value="{{ $fruit->price }}">
+    </div>
+
+    <button type="submit"> Submit </button>
+</form>
+
+```
 
 
