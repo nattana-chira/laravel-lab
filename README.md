@@ -208,10 +208,10 @@ function saveFruit(Request $request)
   - Session
 
 - advance knowledge of laravel
-  - Middleware
   - Database Migration (Factory Seed)
   - Service Provider
   - Middleware
+  - Event Listener
   - Repository Pattern
 
 
