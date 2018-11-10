@@ -94,6 +94,12 @@ function index()
 ใน fruit.blade.php ไห้เราเขียนโค้ด html ลงไปเพื่อสร้างตารางแสดงข้อมูลทั้งหมด
 
 ```html
+<style>
+    td {
+        border: 1px solid black;
+    }
+</style>
+
 <table>
     <thead>
         <th>id</th>
