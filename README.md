@@ -1,5 +1,5 @@
-- สร้าง CRUD กับตารางดาตาเบสหนึ่งตัว
-* sadasd
+ # สร้าง CRUD กับตารางดาตาเบสหนึ่งตัว #
+
 เริ่มต้นจากการสร้าง route ใหม่ก่อน
 
 ```php
@@ -52,9 +52,9 @@ class FruitController extends Controller
 ```php
 function index()
 {
-  $fruits = Fruit::get();
+    $fruits = Fruit::get();
 
-  return $fruits;
+    return $fruits;
 }
 ```
 
@@ -77,6 +77,46 @@ function index()
 ]
 ```
 
+ทีนี้เราอยากจะแสดงข้อมูลที่เราดึงมาในรูปแบบของหน้าเว็บแทน ไห้ไปสร้าง View ขึ้นมาใหม่
+ที่ application/resources/views สร้างไฟล์ที่ชื่อ fruit.blade.php
+
+ใน fruit.blade.php ไห้เราเขียนโค้ด html ลงไปเพื่อสร้างตารางแสดงข้อมูลทั้งหมด
+
+```html
+<table>
+    <thead>
+        <th>id</th>
+        <th>name</th>
+        <th>color</th>
+        <th>price</th>
+    </thead>
+    <tbody>      
+    @foreach($fruits as $fruit)
+        <tr> 
+            <td> {{ $fruit->id }} </td>
+            <td> {{ $fruit->name }} </td>
+            <td> {{ $fruit->price }} </td>
+            <td> {{ $fruit->color }} </td>
+        </tr>
+    @endforeach
+    </tbody>
+</table>
+```
+
+หลังจากนั้น ย้อนกลับไปที่ FruitController เปลี่ยนฟังชัน index ให้มันส่งตัวแปร $fruits ที่ดึงมาจาก Model Fruits ส่งไปให้ View แทน
+
+```php
+function index()
+{
+    $fruits = Fruit::get();
+
+    return view("fruit", [
+        "fruits" => $fruits
+    ]);
+}
+```
+
+กลับไปที่บราวเซอร์ localhost/fruit เพื่อดูความเปลี่ยนแปลง
 
 
 
