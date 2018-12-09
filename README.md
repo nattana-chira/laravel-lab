@@ -220,6 +220,78 @@ function saveFruit(Request $request)
   - Event Listener
   - Repository Pattern
   
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+# laravel-lab-2
+
+เพิ่ม route
+
+```php
+    Route::get("/auth/register", "AuthController@renderRegisterPage");
+    Route::post("/auth/register", "AuthController@handleRegister");
+    Route::get("/auth/login", "AuthController@renderLoginPage");
+    Route::post("/auth/login", "AuthController@handleLogin");
+    Route::post("/auth/logout", "AuthController@handleLogout");
+```
+
+เพิ่ม controller "AuthController"
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Models\User;
+use Auth;
+use Hash;
+
+class AuthController extends Controller
+{
+    function renderRegisterPage()
+    {
+        return view("register-page");
+    }
+    
+    function handleRegister(Request $request)
+    {
+        $user = User::where("username", "=", $request->username")->first(;
+        
+        if ($user) {
+            return "user already exists";
+        }
+        
+        $user = new User;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+        
+        return redirect("/auth/login");
+    }
+    
+    function renderLoginPage()
+    {
+        return view("login-page");
+    }
+    
+    function handleLogin(Request $request)
+    {
+        if (Auth::attempt($request->only(["email", "password"]))
+        {
+            return "successfully login";
+        }
+        
+        return "email or password is incorrect";
+    }
+    
+    function handleLogout()
+    {
+        Auth::logout();
+        
+        return "you are now logout";
+    }
+}
+```
   
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
